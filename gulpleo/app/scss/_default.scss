@@ -1,0 +1,54 @@
+.contentWrap {
+	max-width: em($contentWidth);
+	margin: 0 auto;
+	padding: 0 em(20);
+}
+
+h1 {
+	font-size: em($h1FontSize);
+	font-weight: $light;
+	text-align: center;
+	font-family: $headingFontFamily;
+}
+
+h2 {
+	font-size: em($h2FontSize);
+	font-weight: $regular;
+	text-align: center;
+	font-family: $headingFontFamily;
+	font-style: italic;
+}
+
+p {
+	padding-bottom: em(10);
+}
+
+// section colours //
+
+.sectionDefaults {
+	min-height: em(360);
+	padding: em(30) 0;
+	box-shadow: 0 2px 5px rgba(0,0,0,0.2) inset;
+}
+
+.blue {
+	@extend .sectionDefaults;
+	background-color: $secondaryBlue;
+}
+
+.light {
+	@extend .sectionDefaults;
+	background-color: $secondaryGray;
+}
+
+.green {
+	@extend .sectionDefaults;
+	background-color: $green;
+}
+
+// heading stuff //
+
+.header {
+	background-color: SKYBLUE;
+	padding: em(50) 0;
+}
