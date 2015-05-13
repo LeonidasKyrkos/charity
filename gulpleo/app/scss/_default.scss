@@ -9,6 +9,7 @@ h1 {
 	font-weight: $light;
 	text-align: center;
 	font-family: $headingFontFamily;
+	line-height: 1;
 }
 
 h2 {
@@ -28,12 +29,12 @@ p {
 .sectionDefaults {
 	min-height: em(360);
 	padding: em(30) 0;
-	box-shadow: 0 2px 5px rgba(0,0,0,0.2) inset;
+	border-bottom: 1px solid lightgray;
 }
 
 .blue {
 	@extend .sectionDefaults;
-	background-color: $secondaryBlue;
+	background-color: lighten(skyblue,20%);
 }
 
 .light {
@@ -43,7 +44,7 @@ p {
 
 .green {
 	@extend .sectionDefaults;
-	background-color: $green;
+	background-color: lighten($green,45%);
 }
 
 // heading stuff //
@@ -51,4 +52,20 @@ p {
 .header {
 	background-color: SKYBLUE;
 	padding: em(50) 0;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+	position: relative;
+	z-index: 2;
+
+	h1 {
+		padding-bottom: em(10,70);
+	}
+
+	h2 {
+		text-decoration: underline;
+	}
+
+	img {
+		display: none;
+	}
 }
+
