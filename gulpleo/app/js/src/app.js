@@ -1,6 +1,16 @@
 'use strict';
 
 var $ = require('jquery');
+window.$ = $;
 
-console.log("jQuery verison: "+$().jquery);
+(function(){
 
+	$('.panel').on('click',flip);
+
+	function flip(){
+		$(this).toggleClass('active');
+	}
+
+
+
+})()
