@@ -3,6 +3,20 @@
 	margin: 0 auto;
 	padding: 0 em(20);
 }
+section {
+	position: relative;
+}
+
+.placeholder {
+	width: 100%;
+	position: absolute;
+	top: em(20);
+	bottom: 0;
+	left: 0;
+	background-image: url(/img/placeholdercarousel.jpeg);
+	background-size: cover;
+	background-position: center;
+}
 
 h1 {
 	font-size: em($h1FontSize);
@@ -16,11 +30,7 @@ h2 {
 	font-size: em($h2FontSize);
 	font-weight: $regular;
 	text-align: center;
-	font-family: $headingFontFamily;
-	
-	.copy & {
-		padding-bottom: em(10,$h2FontSize);
-	}
+	font-family: $tertiaryFontFamily;
 }
 
 p {
@@ -52,23 +62,86 @@ p {
 
 // heading stuff //
 
-.header {
+$module: 		'header';
+
+.#{$module} {
 	background-color: darken($secondaryGray,5%);
-	padding: em(100) 0;
+	padding: em(30) em(30) 0;
 	position: relative;
 	z-index: 2;
 
-	h1 {
-		padding-bottom: em(10,70);
+	&__family-panel {
+		display: block;
+		margin: 0 auto;
+		width: em(150);
+		height: auto;
+		padding: 0 0 em(30);
 	}
 
 	h2 {
 		text-decoration: underline;
 		font-style: italic;
+		padding-top: em(10,20);
+		padding-bottom: em(40,20);
+		font-size: em(20);
+		font-family: $headingFontFamily;
 	}
+	
+}
 
-	img {
-		display: none;
+$module: 		'topnav';
+
+.#{$module} {
+	&__items {
+		text-align: center;
+	}
+	&__item {
+		display: inline-block;
+		vertical-align: bottom;
+	}
+	&__link {
+		text-decoration: none;
+		font-style: normal;
+		background-color: $secondaryBlue;
+		color: $white;
+		display: block;
+		width: em(100,14);
+		margin: 0 1px;
+		font-size: em(14);
+		text-transform: lowercase;
+		font-weight: 400;
+
+		&:hover {
+			background-color: darken($secondaryBlue,5%);
+		}
+	}
+}
+
+// copy //
+
+$module: 		'copy';
+
+.#{$module} {
+	&__title {
+		font-size: em(24);
+		text-transform: lowercase;
+		color: $secondaryBlue;
+		font-weight: 600;
+		text-align: left;
+		padding-left: em(20,28);
+		padding-bottom: em(10,$h2FontSize);
+		position: relative;
+
+		&:after {
+			content: "";
+			display: block;
+			position: absolute;
+			left: 0;
+			right: 0;
+			height: 1px;
+			background-color: transparent !important;
+			@include linear-gradient(to right,rgba($secondaryBlue,0.4) 0%,rgba($secondaryBlue,0.4) 65%,transparent 100%);
+		}
 	}
 }
 
@@ -81,9 +154,9 @@ p {
 	@include perspective(1000px);	
 }
 
-.panel {
+$module:		'panel';
+.#{$module} {
 	width: 32%;
-	background-color: $mapRed;
 	padding-bottom: 32%;
 	display: inline-block;
 	background-size: cover;
@@ -91,21 +164,71 @@ p {
 	@include transform-style(preserve-3d);
 	@include transition(transform 0.3s linear);
 	cursor: pointer;
-	box-shadow: 1px 1px 1px rgba(0,0,0,0.4);
 
-	&:nth-child(1) {
-		background-image: url(../../img/mountain1.jpg);
-	}
-	&:nth-child(2) {
-		background-image: url(../../img/path.jpg);
-	}
-	&:nth-child(3) {
-		background-image: url(../../img/moon.jpg);
+	&__front {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background-size: cover;
+		backface-visibility: hidden;
+		@include transition(transform 0.3s linear);
+		@include transform(rotate3d(0,1,0,0));
+
+		.#{$module}:nth-child(1) & {
+			background-image: url(/img/mountain1.jpg);
+		}
+		.#{$module}:nth-child(2) & {
+			background-image: url(/img/path.jpg);
+		}
+		.#{$module}:nth-child(3) & {
+			background-image: url(/img/moon.jpg);
+		}
+
+		.active & {
+			@include transform(rotate3d(0,1,0,180deg));
+		}
+
+		&:before {
+			content: "";
+			background-color: rgba($logoBlue,0.8);
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		}
 	}
 
-	&.active {
-		@include transform(rotateX(0)rotateY(180deg)rotateZ(0));
-		box-shadow: -1px 1px 1px rgba(0,0,0,0.4);
+	&__front-title {
+		position: absolute;
+		top: 50%;
+		text-align: center;
+		left: 0;
+		right: 0;
+		color: $white;
+		font-weight: 600;
+		@include transform(translateY(-50%));
+	}
+
+	&__back {
+		backface-visibility: hidden;
+		background-color: $secondaryBlue;
+		color: $white;
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		@include transition(transform 0.3s linear);
+		@include transform(rotate3d(0,1,0,-180deg));
+		padding: em(20);
+
+		.active & {
+			@include transform(rotateX(0)rotateY(0)rotateZ(0));
+			box-shadow: -1px 1px 1px rgba(0,0,0,0.4);
+		}
 	}
 }
 
@@ -167,7 +290,6 @@ $module: 		'form';
 		font-family: $baseFontFamily;
 		height: em(99);
 		margin-top: 1px;
-		max-width: 500px;
 	}
 
 }
@@ -175,11 +297,14 @@ $module: 		'form';
 // footer //
 
 .footer {
-	padding: em(50,12) 0;
-	background-color: darken($green,10%);
+	padding: em(50) 0;
+	background-color: $secondaryBlue;
 	color: $white;
-	@include font-size(12);
-	border-top: 2px solid $baseGray;
+
+	h2 {
+		font-family: $tertiaryFontFamily;
+		text-transform: lowercase;
+	}
 }
 
 
